@@ -1,6 +1,8 @@
 plugins {
     plugin(Plugins.Android.Library)
     plugin(Plugins.Kotlin.Android)
+    plugin(Plugins.Dokka)
+    `publishing-config`
 }
 
 android {
@@ -44,4 +46,27 @@ dependencies {
     api(Libs.AndroidX.Lifecycle.ViewModel.Ktx)
     api(Libs.AndroidX.Lifecycle.ViewModel.Compose)
     api(Libs.AndroidX.Lifecycle.ViewModel.SavedState)
+}
+
+val javadocJar by tasks.registering(Jar::class) {
+    dependsOn(tasks.dokkaJavadoc)
+    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
+    archiveClassifier.set("javadoc")
+}
+
+val sourcesJar by tasks.registering(Jar::class) {
+    from((android.sourceSets["main"].kotlin as com.android.build.gradle.internal.api.DefaultAndroidSourceDirectorySet).srcDirs)
+    archiveClassifier.set("sources")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("easyFactoriesCompose") {
+                from(components["release"])
+                artifact(sourcesJar)
+                artifact(javadocJar)
+            }
+        }
+    }
 }

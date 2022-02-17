@@ -19,4 +19,7 @@ object Plugins {
     }
 
     val BenManesVersions = PluginSpec("com.github.ben-manes.versions", "0.42.0")
+    val Dokka = PluginSpec("org.jetbrains.dokka", "1.6.10")
+    val NexusPublishing = PluginSpec("io.github.gradle-nexus.publish-plugin", "1.1.0")
+
 }
