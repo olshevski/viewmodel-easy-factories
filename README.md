@@ -6,23 +6,24 @@ The usage looks like this:
 
 ```kotlin
 val mainViewModel by viewModel {
-    MainViewModel("param_value")
+    MainViewModel(args)
 }
 ```
+Here `args` is a reference of some arbitrary type you wanna pass into the MainViewModel.
 
-And if you need to use SavedStateHandle for saving state inside your ViewModel:
+If you need to use SavedStateHandle for saving state inside a ViewModel use `savedStateViewModel` instead:
 
 ```kotlin
 val savedStateMainViewModel by savedStateViewModel { savedStateHandle ->
-    SavedStateMainViewModel("param_value", savedStateHandle)
+    SavedStateMainViewModel(args, savedStateHandle)
 }
 ```
 
-These methods are provided as extensions for [ViewModelStoreOwner](https://developer.android.com/reference/androidx/lifecycle/ViewModelStoreOwner), which means they can be called inside Activity, Fragment or with [NavBackStackEntry](https://developer.android.com/reference/androidx/navigation/NavBackStackEntry) as a receiver.
+These methods are provided as extensions for [ViewModelStoreOwner](https://developer.android.com/reference/androidx/lifecycle/ViewModelStoreOwner), which means they can be with Activity, Fragment or [NavBackStackEntry](https://developer.android.com/reference/androidx/navigation/NavBackStackEntry) as a receiver. Or simply inside you Activity or Fragment classes.
 
 You may also find it convenient to use these methods together with [Dagger](https://dagger.dev/) and [@AssistedInject](https://dagger.dev/dev-guide/assisted-injection.html).
 
-**Note:** As it is intended as an alternative to SavedStateHandle for passing parameters into a ViewModel, SavedStateHandle instances are **not** pre-filled with arguments from Activity, Fragment and NavBackStackEntry.
+**Note:** As it is intended as an alternative to SavedStateHandle for passing parameters into a ViewModel, SavedStateHandle instances are **not pre-filled** with arguments from Activity, Fragment and NavBackStackEntry.
 
 ### Jetpack Compose
 
@@ -30,11 +31,11 @@ There are similar methods for you to use inside your composables:
 
 ```kotlin
 val composeViewModel = viewModel {
-    ComposeViewModel("param_value")
+    ComposeViewModel(args)
 }
 
 val savedStateComposeViewModel = savedStateViewModel { savedStateHandle ->
-    SavedStateComposeViewModel("param_value", savedStateHandle)
+    SavedStateComposeViewModel(args, savedStateHandle)
 }
 ```
 
