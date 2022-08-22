@@ -1,4 +1,4 @@
-# ViewModel Easy Factories
+# **Since [Lifecycle 2.5.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.5.0) there are official `viewModel` methods for doing exactly the same. This library is discontinued.**
 
 Use a simple syntax to manually create new ViewModel instances and provide all parameters directly instead of using [SavedStateHandle](https://developer.android.com/reference/androidx/lifecycle/SavedStateHandle).
 
